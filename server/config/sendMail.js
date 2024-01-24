@@ -12,7 +12,7 @@ export const Mail = async (receiver, otp) => {
     debug: true,
     secureConnection: false,
     auth: {
-      user: "process.env.USERNAME",
+      user: process.env.SMTP_USERNAME,
       pass: process.env.PASSWORD,
     },
     tls: {

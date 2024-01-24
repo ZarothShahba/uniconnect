@@ -229,10 +229,10 @@ const MyPostWidget = ({ picturePath }) => {
               <Typography color={mediumMain}>Event</Typography>
             </FlexBetween> */}
 
-            <FlexBetween gap="0.25rem">
+            {/* <FlexBetween gap="0.25rem">
               <MicOutlined sx={{ color: mediumMain }} />
               <Typography color={mediumMain}>Audio</Typography>
-            </FlexBetween>
+            </FlexBetween> */}
           </>
         ) : (
           <FlexBetween gap="0.25rem">
