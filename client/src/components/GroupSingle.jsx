@@ -11,10 +11,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { DeleteForeverOutlined } from "@mui/icons-material";
 import { setGroups } from "state";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const GroupSingle = ({ groupId }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const allGroups = useSelector((state) => state.groups);
   const user = useSelector((state) => state.user._id);
@@ -67,6 +69,7 @@ const GroupSingle = ({ groupId }) => {
 
   return (
     <Card
+      onClick={() => navigate(`/groups/${groupId}`)}
       sx={{
         borderRadius: "1rem",
         margin: "8px",

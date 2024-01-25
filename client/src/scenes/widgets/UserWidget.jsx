@@ -239,7 +239,7 @@ const UserWidget = ({ userId, picturePath }) => {
               <Typography
                 color={main}
                 fontWeight="500"
-                onClick={() => navigate("/group")}
+                onClick={() => navigate("/groups")}
                 sx={{
                   "&:hover": {
                     color: "#1C768F",

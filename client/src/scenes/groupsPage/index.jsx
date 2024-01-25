@@ -7,7 +7,7 @@ import AdvertWidget from "scenes/widgets/AdvertWidget";
 import FriendListWidget from "scenes/widgets/FriendListWidget";
 import GroupList from "scenes/widgets/GroupList";
 
-const GroupPage = () => {
+const GroupsPage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const { _id, picturePath } = useSelector((state) => state.user);
 
@@ -45,4 +45,4 @@ const GroupPage = () => {
   );
 };
 
-export default GroupPage;
+export default GroupsPage;

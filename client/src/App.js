@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import HomePage from "scenes/homePage";
 import LoginPage from "scenes/loginPage";
 import ProfilePage from "scenes/profilePage";
-import GroupPage from "scenes/groupPage";
+import GroupsPage from "scenes/groupsPage";
 import SavedPage from "scenes/SavedPage";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import GPACalculator from "scenes/gpaPage/GPACalculator";
+import GroupFeedPage from "scenes/groupFeedPage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -32,8 +33,12 @@ function App() {
               element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
             />
             <Route
-              path="/group"
-              element={isAuth ? <GroupPage /> : <Navigate to="/" />}
+              path="/groups"
+              element={isAuth ? <GroupsPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/groups/:groupId"
+              element={isAuth ? <GroupFeedPage /> : <Navigate to="/" />}
             />
             <Route
               path="/saved"
