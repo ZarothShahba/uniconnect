@@ -314,9 +314,10 @@ const PostWidget = ({
               <Box key={`${name}-${i}`}>
                 <Divider />
                 <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                  {`${comment.firstName || ""} ${comment.lastName || ""}: ${
-                    comment.commentText || ""
-                  }`}
+                  <span style={{ fontWeight: "bold", marginRight: "0.5rem" }}>
+                    {`${comment.firstName || ""} ${comment.lastName || ""}:`}
+                  </span>
+                  {comment.commentText || ""}
                 </Typography>
               </Box>
             ))
