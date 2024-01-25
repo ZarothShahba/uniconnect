@@ -37,7 +37,6 @@ const UserSchema = new Schema(
     resetPasswordExpire: Date,
     location: String,
     occupation: String,
-    otp: { type: String, required: [true, "OTP is required"] },
   },
   { timestamps: true }
 );

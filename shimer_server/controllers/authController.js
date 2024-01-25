@@ -29,16 +29,27 @@ const sendTokenResponse = (user, statusCode, res, data) => {
 // @route   POST /api/v1/auth/register
 // @access  Private/Admin
 export const createUser = asyncHandler(async (req, res, next) => {
+  const { otp } = req.body;
+  if (!otp) {
+    return next(new ErrorResponse("OTP is required", 400));
+  }
+
+  // Check if the email has the correct domain
+  if (!email.endsWith("@uovt.ac.lk")) {
+    return next(new ErrorResponse("Invalid email domain", 400));
+  }
+
+  // Verify OTP
+  const userOTP = await OTP.findOne({ email: userData.email });
+  if (!userOTP || !userOTP.verifyOTP(otp)) {
+    return next(new ErrorResponse("Invalid OTP", 401));
+  }
+
   const user = await User.create(req.body);
   // Hide the password
   user.password = undefined;
 
-  sendTokenResponse(user, 200, res, {
-    _id: user._id,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-  });
+  sendTokenResponse(user, 200, res, user);
 });
 
 // @desc    Generate an OTP token and send it to the email provided
@@ -50,6 +61,11 @@ export const sendOtp = asyncHandler(async (req, res, next) => {
   if (!email) {
     return next(new ErrorResponse("Email is required", 400));
   }
+
+  // Check if the email has the correct domain
+  // if (!email.endsWith("@uovt.ac.lk")) {
+  //   return next(new ErrorResponse("Invalid email domain", 400));
+  // }
 
   // Generate OTP
   const userOTP = new OTP({ email });
