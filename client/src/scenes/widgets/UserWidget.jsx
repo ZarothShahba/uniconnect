@@ -10,6 +10,7 @@ import {
   Groups2,
   Calculate,
   ControlPointOutlined,
+  Facebook,
 } from "@mui/icons-material";
 import { Box, Typography, Divider, useTheme } from "@mui/material";
 import UserImage from "components/UserImage";
@@ -58,15 +59,7 @@ const UserWidget = ({ userId, picturePath }) => {
     return null;
   }
 
-  const {
-    firstName,
-    lastName,
-    location,
-    occupation,
-    viewedProfile,
-    impressions,
-    friends,
-  } = user;
+  const { firstName, lastName, location, occupation, socialHandles } = user;
 
   // Check if the current user is viewing their own profile
   const isCurrentUser = userId === userIdFromRedux;
@@ -130,7 +123,7 @@ const UserWidget = ({ userId, picturePath }) => {
       <Divider />
 
       {/* THIRD ROW */}
-      <Box p="1rem 0">
+      {/* <Box p="1rem 0">
         <FlexBetween mb="0.5rem">
           <Typography color={medium}>Who's viewed your profile</Typography>
           <Typography color={main} fontWeight="500">
@@ -145,7 +138,7 @@ const UserWidget = ({ userId, picturePath }) => {
         </FlexBetween>
       </Box>
 
-      <Divider />
+      <Divider /> */}
 
       {/* FOURTH ROW */}
       <Box p="1rem 0">
@@ -156,12 +149,14 @@ const UserWidget = ({ userId, picturePath }) => {
         <FlexBetween gap="1rem" mb="0.5rem">
           <FlexBetween gap="1rem">
             {/* <img src="../assets/twitter.png" alt="twitter"/> */}
-            <Twitter sx={{ color: "#1C768F", fontSize: "2rem" }} />
+            <Facebook sx={{ color: "#1C768F", fontSize: "2rem" }} />
             <Box>
               <Typography color={main} fontWeight="500">
-                Twitter
+                Facebook
               </Typography>
-              <Typography color={medium}>Social Network</Typography>
+              <Typography color={medium}>
+                {socialHandles?.facebook || "No Facebook account linked."}
+              </Typography>
             </Box>
           </FlexBetween>
           <EditOutlined sx={{ color: main }} />
@@ -175,7 +170,9 @@ const UserWidget = ({ userId, picturePath }) => {
               <Typography color={main} fontWeight="500">
                 Linkedin
               </Typography>
-              <Typography color={medium}>Network Platform</Typography>
+              <Typography color={medium}>
+                {socialHandles?.linkedin || "No Linkedin account linked."}
+              </Typography>
             </Box>
           </FlexBetween>
           <EditOutlined sx={{ color: main }} />
@@ -271,7 +268,17 @@ const UserWidget = ({ userId, picturePath }) => {
             {/* <img src="../assets/calc.png" alt="Groups" width="25px" height="25px" /> */}
             <Calculate sx={{ color: "#1C768F", fontSize: "2rem" }} />
             <Box>
-              <Typography color={main} fontWeight="500">
+              <Typography
+                color={main}
+                fontWeight="500"
+                onClick={() => navigate("/gpa")}
+                sx={{
+                  "&:hover": {
+                    color: "#1C768F",
+                    cursor: "pointer",
+                  },
+                }}
+              >
                 GPA Calculator
               </Typography>
             </Box>
