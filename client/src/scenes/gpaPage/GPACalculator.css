@@ -1,0 +1,194 @@
+/* styles.css */
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fbf3f2;
+}
+
+.frame-parent {
+  position: absolute;
+  top: calc(50% - 203.35px);
+  left: 386px;
+  width: 366px;
+  height: 359px;
+}
+
+.calculator-container {
+  background-color: #ffffff;
+  padding: 9px;
+  /* Increased padding */
+  text-align: center;
+  position: relative;
+  width: 100%;
+  /* Adjust the width as needed */
+
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Increased width */
+}
+
+label {
+  display: inline-block;
+  margin: 10px 0;
+  color: #1c768f;
+}
+
+.heading {
+  color: black;
+  font-size: xx-large;
+  margin-bottom: 40px;
+}
+
+input,
+select {
+  padding: 10px;
+  /* Increased padding */
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  width: 50px;
+  border-radius: 5px;
+  border: 1px solid #032539;
+  /* Add a border for better visibility */
+}
+
+button {
+  padding: 14px 28px;
+  /* Increased padding */
+  cursor: pointer;
+  background-color: #fa991c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+button.clear-button {
+  background-color: #1c768f;
+  /* Change to blue */
+}
+
+button:hover {
+  background-color: #fcc778;
+}
+
+#fields {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* Set width to 100% */
+}
+
+/* GPACalculator.css */
+
+.field-row label {
+  margin-right: 15px;
+  /* Increased margin */
+  flex: 1;
+  /* Add this line to make the label take up available space */
+}
+
+/* Add the following CSS to adjust the width of the label text */
+label {
+  min-width: 100px;
+  /* Adjust the width as needed */
+  text-align: right;
+  margin-bottom: 15px;
+}
+
+.field-row {
+  display: flex;
+  margin-bottom: 15px;
+  width: 100%;
+  /* Increased margin */
+}
+
+.field-row label,
+.field-row input,
+.field-row select {
+  margin-right: 15px;
+  /* Increased margin */
+}
+
+#buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.logo-above-calculator {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.logo-image {
+  margin-top: 10px;
+  width: 60px;
+  /* Adjust the size of the logo */
+  height: auto;
+  /* Other styles for the logo */
+  align-content: center;
+}
+
+/* GPACalculator.css */
+
+/* GPACalculator.css */
+
+.container {
+  display: flex;
+  max-width: 800px;
+  /* Adjust the maximum width of the container */
+  margin: 0 auto;
+  /* Center the container */
+
+  border: 1px solid rgba(250, 153, 28, 0.4);
+  box-sizing: border-box;
+}
+
+.image-container {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+}
+
+.calculator-image {
+  max-width: 170%;
+  height: auto;
+  max-height: 100%;
+}
+
+.calculator-container .calculator-component {
+  max-width: 70%;
+  /* Adjust the maximum width of the calculator */
+  width: 100%;
+}
+
+/* GPACalculator.css */
+
+/* Existing styles for other elements... */
+
+.calculator-container.center input[type="number"].credits {
+  width: 115px;
+  /* Adjust the width as needed */
+}
+
+.calculator-container.center select {
+  width: 70px;
+  /* Adjust the width as needed */
+}

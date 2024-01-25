@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
+import GPACalculator from "scenes/gpaPage/GPACalculator";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -37,6 +38,10 @@ function App() {
             <Route
               path="/saved"
               element={isAuth ? <SavedPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/gpa"
+              element={isAuth ? <GPACalculator /> : <Navigate to="/" />}
             />
           </Routes>
         </ThemeProvider>
