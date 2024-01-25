@@ -77,7 +77,7 @@ const GroupFeedPage = () => {
           {/* <Typography style={{ fontSize:"34px"}}>
             Group Post Only
           </Typography> */}
-          <PostsWidget userId={_id} />
+          <PostsWidget userId={_id} groupId={group} />
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">

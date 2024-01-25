@@ -335,3 +335,14 @@ export const deleteGroupById = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+/* GET GROUP POSTS */
+export const getGroupPosts = async (req, res) => {
+  try {
+    const { groupId } = req.params;
+    const post = await Post.find({ groupId });
+    res.status(200).json(post);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};

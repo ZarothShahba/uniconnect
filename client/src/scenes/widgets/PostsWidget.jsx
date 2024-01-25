@@ -5,7 +5,7 @@ import PostWidget from "./PostWidget";
 import { Typography } from "@mui/material";
 import toast from "react-hot-toast";
 
-const PostsWidget = ({ userId, isProfile = false }) => {
+const PostsWidget = ({ userId, isProfile = false, groupId }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
@@ -67,9 +67,38 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     }
   };
 
+  const getGroupPosts = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/posts/${groupId}/posts`,
+        {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (!response.ok) {
+        toast.error("Unable to fetch user posts");
+        return;
+      }
+      const data = await response.json();
+      dispatch(
+        setPosts({
+          posts: data.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          ),
+        })
+      );
+    } catch (error) {
+      console.error("Error fetching group posts:", error.message);
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     if (isProfile) {
       getUserPosts();
+    } else if (groupId) {
+      getGroupPosts();
     } else {
       getPosts();
     }
