@@ -39,8 +39,8 @@ export const createPost = async (req, res) => {
 /* READ */
 export const getFeedPosts = async (req, res) => {
   try {
-    const post = await Post.find();
-    res.status(200).json(post);
+    const posts = await Post.find({ groupId: null });
+    res.status(200).json(posts);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -343,7 +343,6 @@ export const deleteGroupById = async (req, res) => {
 export const getGroupPosts = async (req, res) => {
   try {
     const { groupId } = req.params;
-    console.log("🚀 ~ getGroupPosts ~ groupId:", groupId);
     const post = await Post.find({ groupId });
     res.status(200).json(post);
   } catch (err) {

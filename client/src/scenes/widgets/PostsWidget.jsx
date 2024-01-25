@@ -1,18 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
 import PostWidget from "./PostWidget";
 import { Typography } from "@mui/material";
 import toast from "react-hot-toast";
+import LoadingSpinner from "components/LoadingSpinner";
 
 const PostsWidget = ({ userId, isProfile = false, groupId }) => {
-  console.log("🚀 ~ PostsWidget ~ groupId:", groupId);
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
+  const [isLoading, setisLoading] = useState(false);
 
   const getPosts = async () => {
     try {
+      setisLoading(true);
       const response = await fetch("http://localhost:3001/posts", {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -38,11 +40,14 @@ const PostsWidget = ({ userId, isProfile = false, groupId }) => {
     } catch (error) {
       console.error("Error fetching posts:", error.message);
       toast.error(error.message);
+    } finally {
+      setisLoading(false);
     }
   };
 
   const getUserPosts = async () => {
     try {
+      setisLoading(true);
       const response = await fetch(
         `http://localhost:3001/posts/${userId}/posts`,
         {
@@ -65,11 +70,14 @@ const PostsWidget = ({ userId, isProfile = false, groupId }) => {
     } catch (error) {
       console.error("Error fetching user posts:", error.message);
       toast.error(error.message);
+    } finally {
+      setisLoading(false);
     }
   };
 
   const getGroupPosts = async () => {
     try {
+      setisLoading(true);
       const response = await fetch(
         `http://localhost:3001/groups/${groupId}/posts`,
         {
@@ -92,6 +100,8 @@ const PostsWidget = ({ userId, isProfile = false, groupId }) => {
     } catch (error) {
       console.error("Error fetching group posts:", error.message);
       toast.error(error.message);
+    } finally {
+      setisLoading(false);
     }
   };
 
@@ -103,8 +113,11 @@ const PostsWidget = ({ userId, isProfile = false, groupId }) => {
     } else {
       getPosts();
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [groupId, isProfile]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
   return (
     <>
       {posts && Array.isArray(posts) ? (
