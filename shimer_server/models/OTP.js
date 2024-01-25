@@ -24,4 +24,8 @@ OTPSchema.methods.generateOTP = function () {
   return otp;
 };
 
+OTPSchema.methods.verifyOTP = function (enteredOTP) {
+  return enteredOTP === this.otp;
+};
+
 export default model("OTP", OTPSchema);

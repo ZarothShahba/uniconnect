@@ -26,21 +26,39 @@ const sendTokenResponse = (user, statusCode, res, data) => {
 };
 
 // @desc    Create a user
-// @route   POST /api/v1/auth/register
-// @access  Private/Admin
-export const createUser = asyncHandler(async (req, res, next) => {
-  const { otp } = req.body;
+// @route   POST /api/v1/auth/verify-otp
+// @access  Private
+export const verifyOTP = asyncHandler(async (req, res, next) => {
+  const { otp, email } = req.body;
+  console.log("🚀 ~ verifyOTP ~ req.body:", req.body);
   if (!otp) {
     return next(new ErrorResponse("OTP is required", 400));
   }
 
-  // Check if the email has the correct domain
-  if (!email.endsWith("@uovt.ac.lk")) {
-    return next(new ErrorResponse("Invalid email domain", 400));
+  // Verify OTP
+  const userOTP = await OTP.findOne({ email });
+  if (!userOTP || !userOTP.verifyOTP(otp)) {
+    return next(new ErrorResponse("Invalid OTP", 401));
+  }
+  res.status(200).json({ sucess: true, data: {} });
+});
+
+// @desc    Create a user
+// @route   POST /api/v1/auth/register
+// @access  Private
+export const createUser = asyncHandler(async (req, res, next) => {
+  const { otp, email } = req.body;
+  if (!otp) {
+    return next(new ErrorResponse("OTP is required", 400));
   }
 
+  // // Check if the email has the correct domain
+  // if (!email.endsWith("@uovt.ac.lk")) {
+  //   return next(new ErrorResponse("Invalid email domain", 400));
+  // }
+
   // Verify OTP
-  const userOTP = await OTP.findOne({ email: userData.email });
+  const userOTP = await OTP.findOne({ email });
   if (!userOTP || !userOTP.verifyOTP(otp)) {
     return next(new ErrorResponse("Invalid OTP", 401));
   }
@@ -67,15 +85,23 @@ export const sendOtp = asyncHandler(async (req, res, next) => {
   //   return next(new ErrorResponse("Invalid email domain", 400));
   // }
 
-  // Generate OTP
-  const userOTP = new OTP({ email });
-  userOTP.generateOTP();
+  // Check if the user already has an OTP
+  let userOTP = await OTP.findOne({ email });
+
+  if (userOTP) {
+    // User already has an OTP, update the existing OTP
+    userOTP.generateOTP();
+    userOTP.expiry = new Date(Date.now() + 10 * 60 * 1000); // Set expiry time (e.g., 10 minutes)
+  } else {
+    // Generate new OTP and create a new OTP document
+    userOTP = new OTP({ email });
+    userOTP.generateOTP();
+  }
 
   // Save OTP to the database
   await userOTP.save();
 
   // Send OTP to the user's email
-
   const emailMessage = `Your OTP is: ${userOTP.otp}. Please use it to verify your email.`;
 
   try {

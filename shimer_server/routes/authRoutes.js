@@ -8,13 +8,16 @@ import {
   forgotPassword,
   resetPassword,
   sendOtp,
+  verifyOTP,
 } from "../controllers/authController.js";
 import { protect } from "../middleware/auth.js";
+import fileUpload from "../middleware/fileUpload.js";
 
 const router = express.Router();
 
-router.post("/register", createUser);
+router.post("/register", fileUpload, createUser);
 router.post("/otp", sendOtp);
+router.post("/verify-otp", verifyOTP);
 router.post("/login", loginUser);
 router.get("/logout", logout);
 router.get("/me", protect, getMe);
