@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 import toast from "react-hot-toast";
 
 const PostsWidget = ({ userId, isProfile = false, groupId }) => {
+  console.log("🚀 ~ PostsWidget ~ groupId:", groupId);
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
@@ -70,7 +71,7 @@ const PostsWidget = ({ userId, isProfile = false, groupId }) => {
   const getGroupPosts = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/posts/${groupId}/posts`,
+        `http://localhost:3001/groups/${groupId}/posts`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },

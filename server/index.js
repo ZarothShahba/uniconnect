@@ -29,7 +29,7 @@ const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(morgan("common"));
+// app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "150mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "150mb", extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));

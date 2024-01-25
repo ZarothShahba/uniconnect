@@ -52,6 +52,9 @@ const MyPostWidget = ({ picturePath, groupId }) => {
       formData.append("video", video);
       formData.append("videoPath", video.name);
     }
+    if (groupId) {
+      formData.append("groupId", groupId);
+    }
     const response = await fetch(`http://localhost:3001/posts/create`, {
       method: "POST",
       headers: {

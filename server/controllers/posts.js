@@ -2,11 +2,13 @@ import Post from "../models/Post.js";
 import User from "../models/User.js";
 import Events from "../models/Event.js";
 import Group from "../models/Group.js";
+import mongoose from "mongoose";
 
 /* CREATE POST*/
 export const createPost = async (req, res) => {
   try {
-    const { userId, description, picturePath, videoPath } = req.body;
+    const { userId, description, picturePath, videoPath, groupId } = req.body;
+    console.log("🚀 ~ createPost ~ groupId:", groupId);
     const user = await User.findById(userId);
     if (!user) {
       // Handle the case when the user is not found
@@ -17,6 +19,7 @@ export const createPost = async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       location: user.location,
+      groupId: groupId,
       description,
       userPicturePath: user.picturePath,
       picturePath,
@@ -340,6 +343,7 @@ export const deleteGroupById = async (req, res) => {
 export const getGroupPosts = async (req, res) => {
   try {
     const { groupId } = req.params;
+    console.log("🚀 ~ getGroupPosts ~ groupId:", groupId);
     const post = await Post.find({ groupId });
     res.status(200).json(post);
   } catch (err) {

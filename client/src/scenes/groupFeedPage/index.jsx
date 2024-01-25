@@ -20,7 +20,9 @@ const GroupFeedPage = () => {
   const { _id, picturePath } = useSelector((state) => state.user);
   const { groupId } = useParams();
   const allGroups = useSelector((state) => state.groups);
-  const group = allGroups.find((group) => group._id === groupId);
+  const group = allGroups.find((group) => {
+    return group._id === groupId;
+  });
   const groupAvatarSrc =
     `http://localhost:3001/public/assets/picture/${group.profilePicture}` ||
     "https://www.govloop.com/wp-content/uploads/2015/06/data-brain-e1448373467709.jpg";
@@ -73,11 +75,11 @@ const GroupFeedPage = () => {
               </Typography>
             </div>
           </div>
-          <MyPostWidget picturePath={picturePath} />
+          <MyPostWidget picturePath={picturePath} groupId={groupId} />
           {/* <Typography style={{ fontSize:"34px"}}>
             Group Post Only
           </Typography> */}
-          <PostsWidget userId={_id} groupId={group} />
+          <PostsWidget userId={_id} groupId={groupId} />
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">
