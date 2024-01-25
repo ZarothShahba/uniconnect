@@ -13,27 +13,27 @@ const FriendListWidget = ({ userId }) => {
   const friends = useSelector((state) => state.user.friends || []);
   const allGroups = useSelector((state) => state.groups);
 
-  const getFriends = async () => {
-    const response = await fetch(
-      `http://localhost:3001/users/${userId}/friends`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    const data = await response.json();
-    dispatch(setFriends({ friends: data }));
+  // const getFriends = async () => {
+  //   const response = await fetch(
+  //     `http://localhost:3001/users/${userId}/friends`,
+  //     {
+  //       method: "GET",
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     }
+  //   );
+  //   const data = await response.json();
+  //   dispatch(setFriends({ friends: data }));
 
-    // Check if allUsers is undefined before mapping
-    if (!friends) {
-      // Return some placeholder, loading state, or an empty component
-      return <div>Loading...</div>;
-    }
-  };
+  //   // Check if allUsers is undefined before mapping
+  //   if (!friends) {
+  //     // Return some placeholder, loading state, or an empty component
+  //     return <div>Loading...</div>;
+  //   }
+  // };
 
-  useEffect(() => {
-    getFriends();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // useEffect(() => {
+  //   getFriends();
+  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <WidgetWrapper>
@@ -45,7 +45,7 @@ const FriendListWidget = ({ userId }) => {
       >
         Group Shortcuts
       </Typography>
-      <Box display="flex" flexDirection="column" gap="1.5rem">
+      {/* <Box display="flex" flexDirection="column" gap="1.5rem">
         {friends.map((friend) => (
           <Friend
             key={friend._id}
@@ -55,7 +55,7 @@ const FriendListWidget = ({ userId }) => {
             userPicturePath={friend.picturePath}
           />
         ))}
-      </Box>
+      </Box> */}
       <Box>
         {allGroups.map((group) => (
           <GroupSingle key={group._id} groupId={group._id} />

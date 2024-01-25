@@ -14,6 +14,10 @@ const postSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    groupId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Group", // Reference to the Group model
+    },
     location: String,
     description: String,
     picturePath: String,

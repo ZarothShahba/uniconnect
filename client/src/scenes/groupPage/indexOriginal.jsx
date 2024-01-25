@@ -1,18 +1,15 @@
-import React from "react";
-import { Box, useMediaQuery } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import Navbar from "scenes/navbar";
 import UserWidget from "scenes/widgets/UserWidget";
+import MyPostWidget from "scenes/widgets/MyPostWidget";
+import PostsWidget from "scenes/widgets/PostsWidget";
 import AdvertWidget from "scenes/widgets/AdvertWidget";
 import FriendListWidget from "scenes/widgets/FriendListWidget";
-import GroupList from "scenes/widgets/GroupList";
 
 const GroupPage = () => {
-  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)"); 
   const { _id, picturePath } = useSelector((state) => state.user);
-
-  // Assuming you have a groups array in your Redux state
-  const groups = useSelector((state) => state.groups);
 
   return (
     <Box>
@@ -31,7 +28,11 @@ const GroupPage = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          <GroupList groups={groups} />
+          <MyPostWidget picturePath={picturePath} />
+          {/* <Typography style={{ fontSize:"34px"}}>
+            Group Post Only
+          </Typography> */}
+          <PostsWidget userId={_id} />
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">

@@ -1,6 +1,12 @@
 import React from "react";
-import { Card, Avatar, Divider, Typography } from "@mui/material";
-import FlexBetween from "./FlexBetween";
+import {
+  Card,
+  Avatar,
+  Divider,
+  Typography,
+  IconButton,
+  useTheme,
+} from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { DeleteForeverOutlined } from "@mui/icons-material";
 import { setGroups } from "state";
@@ -8,6 +14,8 @@ import toast from "react-hot-toast";
 
 const GroupSingle = ({ groupId }) => {
   const dispatch = useDispatch();
+  const theme = useTheme();
+
   const allGroups = useSelector((state) => state.groups);
   const user = useSelector((state) => state.user._id);
   const token = useSelector((state) => state.token);
@@ -19,6 +27,7 @@ const GroupSingle = ({ groupId }) => {
     // Handle the case where the group is not found
     return null;
   }
+
   const deleteGroup = async () => {
     try {
       const response = await fetch(
@@ -38,10 +47,10 @@ const GroupSingle = ({ groupId }) => {
         return;
       }
 
-      const deleteGroup = await response.json();
+      const deletedGroup = await response.json();
 
       const updatedGroups = allGroups.filter(
-        (group) => group._id !== deleteGroup._id
+        (group) => group._id !== deletedGroup._id
       );
       dispatch(setGroups({ groups: updatedGroups }));
 
@@ -57,39 +66,62 @@ const GroupSingle = ({ groupId }) => {
     "https://www.govloop.com/wp-content/uploads/2015/06/data-brain-e1448373467709.jpg";
 
   return (
-    <Card sx={{ borderRadius: "1rem", margin: "8px", position: "relative" }}>
+    <Card
+      sx={{
+        borderRadius: "1rem",
+        margin: "8px",
+        position: "relative",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        transition: "transform 0.2s",
+        "&:hover": {
+          transform: "scale(1.02)",
+          cursor: "pointer",
+        },
+      }}
+    >
       {/* Group Profile Picture */}
-      <FlexBetween padding="2rem">
+      <div
+        style={{
+          backgroundColor: theme.palette.mode === "light" ? "#BBD6DD" : "grey",
+          padding: "1rem",
+          borderRadius: "1rem 1rem 0 0",
+        }}
+      >
         <Avatar
           alt={group.groupName}
           src={groupAvatarSrc}
           sx={{ width: 56, height: 56 }}
         />
-        {/* Group Name and Member Count on the Right Side */}
-        <div>
-          <Typography variant="h5" component="div">
-            {group.groupName}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            Members: {`${group.groupMembers.length}`}
-          </Typography>
-        </div>
-        {isGroupOwner && (
-          <DeleteForeverOutlined
-            sx={{
-              position: "absolute",
-              top: "15px",
-              right: "15px",
-              color: "#1C768F",
-              "&:hover": {
-                color: "red",
-                cursor: "pointer",
-              },
-            }}
-            onClick={() => deleteGroup()}
-          />
-        )}
-      </FlexBetween>
+      </div>
+      {/* Group Name and Member Count on the Right Side */}
+      <div style={{ padding: "1rem" }}>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ color: "#1C768F", marginBottom: "0.5rem" }}
+        >
+          {group.groupName}
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          Members: {`${group.groupMembers.length}`}
+        </Typography>
+      </div>
+      {isGroupOwner && (
+        <IconButton
+          sx={{
+            position: "absolute",
+            top: "15px",
+            right: "15px",
+            color: "#1C768F",
+            "&:hover": {
+              color: "red",
+            },
+          }}
+          onClick={() => deleteGroup()}
+        >
+          <DeleteForeverOutlined />
+        </IconButton>
+      )}
       <Divider />
     </Card>
   );

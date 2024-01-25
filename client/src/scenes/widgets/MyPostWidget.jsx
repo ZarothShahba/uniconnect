@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
 import CreateEventForm from "components/CreateEvent";
 
-const MyPostWidget = ({ picturePath }) => {
+const MyPostWidget = ({ picturePath, groupId }) => {
   const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
   const [isVideo, setIsVideo] = useState(false);
