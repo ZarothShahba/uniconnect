@@ -19,12 +19,12 @@ export const register = async (req, res) => {
       otp,
     } = req.body;
 
-    // Check if the email matches the required pattern
-    // if (!emailRegex.test(email)) {
-    //   return res
-    //     .status(400)
-    //     .json({ error: "Invalid email format for registration." });
-    // }
+    Check if the email matches the required pattern
+    if (!emailRegex.test(email)) {
+      return res
+        .status(400)
+        .json({ error: "Invalid email format for registration." });
+    }
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
