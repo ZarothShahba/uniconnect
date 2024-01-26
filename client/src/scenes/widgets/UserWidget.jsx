@@ -35,11 +35,13 @@ const UserWidget = ({ userId, picturePath }) => {
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
 
-  const handleEditButtonClick = () => {
+  const handleEditButtonClick = (evt) => {
+    evt.stopPropagation();
     setIsEditPopupOpen(true);
   };
 
-  const handleCloseEditPopup = () => {
+  const handleCloseEditPopup = (evt) => {
+    evt.stopPropagation();
     setIsEditPopupOpen(false);
   };
 
@@ -95,7 +97,7 @@ const UserWidget = ({ userId, picturePath }) => {
         {isCurrentUser && (
           <ManageAccountsOutlined
             sx={{ color: "#1C768F" }}
-            onClick={handleEditButtonClick}
+            onClick={(evt) => handleEditButtonClick(evt)}
           />
         )}
         {isEditPopupOpen && isCurrentUser && (
