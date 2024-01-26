@@ -30,7 +30,8 @@ const GroupSingle = ({ groupId }) => {
     return null;
   }
 
-  const deleteGroup = async () => {
+  const deleteGroup = async (evt) => {
+    evt.stopPropagation();
     try {
       const response = await fetch(
         `http://localhost:3001/groups/delete/${groupId}`,
@@ -120,7 +121,7 @@ const GroupSingle = ({ groupId }) => {
               color: "red",
             },
           }}
-          onClick={() => deleteGroup()}
+          onClick={(evt) => deleteGroup(evt)}
         >
           <DeleteForeverOutlined />
         </IconButton>

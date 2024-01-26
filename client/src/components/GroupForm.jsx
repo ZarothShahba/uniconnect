@@ -213,7 +213,9 @@ const CreateGroupForm = ({ isOpen, onClose }) => {
                     }
                   }}
                 />
-                <label htmlFor={user._id}>{user.firstName}</label>
+                <label htmlFor={user._id}>
+                  {user.firstName} {user.lastName}
+                </label>
               </div>
             ))}
           </div>

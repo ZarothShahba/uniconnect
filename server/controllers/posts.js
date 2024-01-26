@@ -254,11 +254,7 @@ export const savePost = async (req, res) => {
       post.saves.set(userId, true);
     }
 
-    const updatedPost = await Post.findByIdAndUpdate(
-      id,
-      { saves: post.saves },
-      { new: true }
-    );
+    await post.save(); // Save the post to persist changes
 
     // Update the user's savedPosts array
     const user = await User.findById(userId);
@@ -272,7 +268,7 @@ export const savePost = async (req, res) => {
 
     await user.save();
 
-    res.status(201).json(updatedPost);
+    res.status(201).json(post);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
