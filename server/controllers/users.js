@@ -13,6 +13,23 @@ export const getUser = async (req, res) => {
   }
 };
 
+export const searchUsers = async (req, res) => {
+  try {
+    const { query } = req.params;
+    console.log("🚀 ~ searchUsers ~ query:", query);
+    const users = await User.find({
+      $or: [
+        { firstName: { $regex: query, $options: "i" } }, // Case-insensitive search for first name
+        { lastName: { $regex: query, $options: "i" } }, // Case-insensitive search for last name
+      ],
+    });
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 /* UPDATE PROFILE */
 export const updateProfile = async (req, res) => {
   try {

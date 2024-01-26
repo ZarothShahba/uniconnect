@@ -4,6 +4,7 @@ import {
   getUser,
   getAllUsers,
   updateProfile,
+  searchUsers,
 } from "../controllers/users.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -13,6 +14,7 @@ const router = express.Router();
 router.get("/getAll", getAllUsers);
 
 /* READ */
+router.get("/search/:query", verifyToken, searchUsers);
 router.get("/:id", verifyToken, getUser);
 
 /* UPDATE */

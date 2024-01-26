@@ -11,6 +11,7 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import GPACalculator from "scenes/gpaPage/GPACalculator";
 import GroupFeedPage from "scenes/groupFeedPage";
+import SearchPage from "scenes/searchPage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -47,6 +48,10 @@ function App() {
             <Route
               path="/gpa"
               element={isAuth ? <GPACalculator /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/search"
+              element={isAuth ? <SearchPage /> : <Navigate to="/" />}
             />
           </Routes>
         </ThemeProvider>

@@ -92,7 +92,9 @@ const Navbar = () => {
           </IconButton>
           <Message sx={{ fontSize: "25px", color: "white" }} />
           <Notifications sx={{ fontSize: "25px", color: "white" }} />
-          {/* <Help sx={{ fontSize: "25px", color:"white" }} /> */}
+          <IconButton onClick={() => navigate("/search")}>
+            <Search sx={{ fontSize: "25px", color: "white" }} />
+          </IconButton>
           <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
