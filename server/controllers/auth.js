@@ -71,6 +71,11 @@ export const login = async (req, res) => {
 export const generateOTP = async (req, res) => {
   try {
     const { email } = req.body;
+    if (!emailRegex.test(email)) {
+      return res
+        .status(400)
+        .json({ error: "Invalid email domain for registration." });
+    }
     const otp = `${Math.floor(100000 + Math.random() * 900000)}`;
     await Mail(email, otp);
     res.status(201).json(otp);

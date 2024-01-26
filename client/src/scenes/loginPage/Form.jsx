@@ -167,7 +167,7 @@ const Form = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        toast.error("Error Sending OTP", errorData);
+        toast.error(errorData.error || "Error Sending OTP");
         return;
       }
       const OTP = await response.json();
