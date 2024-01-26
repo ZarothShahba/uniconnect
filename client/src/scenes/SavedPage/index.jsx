@@ -9,7 +9,7 @@ import UserWidget from "scenes/widgets/UserWidget";
 
 const SavedPage = () => {
   const [user, setUser] = useState(null);
-  const { userId } = useParams();
+  const { _id: userId } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
@@ -48,9 +48,7 @@ const SavedPage = () => {
         >
           <MyPostWidget picturePath={user.picturePath} />
           <Box m="2rem 0" />
-          <Typography fontSize="30px"> 
-            My Saved Posts
-          </Typography>
+          <Typography fontSize="30px">My Saved Posts</Typography>
           {/* <EditProfile/> */}
           <PostsWidget userId={userId} isProfile />
         </Box>

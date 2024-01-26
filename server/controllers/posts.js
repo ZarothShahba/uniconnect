@@ -248,6 +248,18 @@ export const savePost = async (req, res) => {
       { new: true }
     );
 
+    // Update the user's savedPosts array
+    const user = await User.findById(userId);
+    const savedPostsIndex = user.savedPosts.indexOf(id);
+
+    if (isSaved && savedPostsIndex !== -1) {
+      user.savedPosts.splice(savedPostsIndex, 1); // Remove saved post from user
+    } else if (!isSaved && savedPostsIndex === -1) {
+      user.savedPosts.push(id); // Add saved post to user
+    }
+
+    await user.save();
+
     res.status(201).json(updatedPost);
   } catch (err) {
     res.status(404).json({ message: err.message });
