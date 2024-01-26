@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema(
       min: 2,
       max: 50,
     },
+    name: { type: String, minlength: 3, maxlength: 30 },
     lastName: {
       type: String,
       required: true,
@@ -51,6 +52,13 @@ const UserSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Add a pre-save hook to set the 'name' field before saving
+UserSchema.pre("save", function (next) {
+  // Combine 'firstName' and 'lastName' to create the 'name'
+  this.name = `${this.firstName} ${this.lastName}`;
+  next();
+});
 
 const User = mongoose.model("User", UserSchema);
 export default User;

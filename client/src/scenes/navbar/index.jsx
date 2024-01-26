@@ -91,13 +91,14 @@ const Navbar = () => {
             )}
           </IconButton>
           <IconButton
+            sx={{ fontSize: "25px", color: "white" }}
             onClick={() => {
               window.location.href = "http://localhost:5173/";
             }}
           >
             <Message sx={{ fontSize: "25px" }} />
           </IconButton>
-          <Notifications sx={{ fontSize: "25px", color: "white" }} />
+          {/* <Notifications sx={{ fontSize: "25px", color: "white" }} /> */}
           <IconButton onClick={() => navigate("/search")}>
             <Search sx={{ fontSize: "25px", color: "white" }} />
           </IconButton>

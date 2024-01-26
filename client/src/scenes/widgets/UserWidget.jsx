@@ -11,6 +11,7 @@ import {
   Calculate,
   ControlPointOutlined,
   Facebook,
+  MessageOutlined,
 } from "@mui/icons-material";
 import { Box, Typography, Divider, useTheme } from "@mui/material";
 import UserImage from "components/UserImage";
@@ -212,12 +213,14 @@ const UserWidget = ({ userId, picturePath }) => {
         <FlexBetween gap="1rem" mb="2rem">
           <FlexBetween gap="1rem">
             {/* <img src="../assets/events.png" alt="Events" /> */}
-            <Event sx={{ color: "#1C768F", fontSize: "2rem" }} />
+            <MessageOutlined sx={{ color: "#1C768F", fontSize: "2rem" }} />
             <Box>
               <Typography
                 color={main}
                 fontWeight="500"
-                onClick={() => navigate("")}
+                onClick={() => {
+                  window.location.href = "http://localhost:5173/";
+                }}
                 sx={{
                   "&:hover": {
                     color: "#1C768F",
@@ -225,7 +228,7 @@ const UserWidget = ({ userId, picturePath }) => {
                   },
                 }}
               >
-                Events
+                Chat
               </Typography>
             </Box>
           </FlexBetween>
