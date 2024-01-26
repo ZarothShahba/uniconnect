@@ -90,7 +90,13 @@ const Navbar = () => {
               <LightMode sx={{ color: dark, fontSize: "25px" }} />
             )}
           </IconButton>
-          <Message sx={{ fontSize: "25px", color: "white" }} />
+          <IconButton
+            onClick={() => {
+              window.location.href = "http://localhost:5173/";
+            }}
+          >
+            <Message sx={{ fontSize: "25px" }} />
+          </IconButton>
           <Notifications sx={{ fontSize: "25px", color: "white" }} />
           <IconButton onClick={() => navigate("/search")}>
             <Search sx={{ fontSize: "25px", color: "white" }} />
@@ -167,7 +173,13 @@ const Navbar = () => {
                 <LightMode sx={{ color: dark, fontSize: "25px" }} />
               )}
             </IconButton>
-            <Message sx={{ fontSize: "25px" }} />
+            <IconButton
+              onClick={() => {
+                window.location.href = "http://localhost:5173/";
+              }}
+            >
+              <Message sx={{ fontSize: "25px" }} />
+            </IconButton>
             <Notifications sx={{ fontSize: "25px" }} />
             <Help sx={{ fontSize: "25px" }} />
             <FormControl variant="standard" value={fullName}>
