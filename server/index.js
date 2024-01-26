@@ -20,6 +20,8 @@ import { createGroup } from "./controllers/posts.js";
 import User from "./models/User.js";
 import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
+import chatRoute from "./routes/chatRoute.js";
+import messageRoute from "./routes/messageRoute.js";
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -82,6 +84,10 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/groups", groupRoutes);
+
+// Chat Routes
+app.use("/api/chats", chatRoute);
+app.use("/api/messages", messageRoute);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
