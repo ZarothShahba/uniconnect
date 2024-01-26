@@ -35,6 +35,16 @@ const EditUserPopup = ({ open, handleClose, user }) => {
       ...prevUser,
       [name]: value,
     }));
+    // Handle special cases for linkedIn and facebook
+    if (name === "linkedIn" || name === "facebook") {
+      setEditedUser((prevUser) => ({
+        ...prevUser,
+        socialHandles: {
+          ...prevUser.socialHandles,
+          [name]: value,
+        },
+      }));
+    }
     // Handle password separately
     if (name === "password") {
       setPassword(value);
@@ -75,6 +85,18 @@ const EditUserPopup = ({ open, handleClose, user }) => {
 
       if (editedUser.occupation) {
         formData.append("occupation", editedUser.occupation);
+      }
+
+      // Add socialHandles to the form data
+      if (editedUser.socialHandles) {
+        formData.append(
+          "socialHandles[linkedIn]",
+          editedUser.socialHandles.linkedIn
+        );
+        formData.append(
+          "socialHandles[facebook]",
+          editedUser.socialHandles.facebook
+        );
       }
 
       if (profilePicture) {
@@ -201,6 +223,23 @@ const EditUserPopup = ({ open, handleClose, user }) => {
           label="Occupation"
           name="occupation"
           value={editedUser.occupation}
+          onChange={handleInputChange}
+          fullWidth
+          sx={{ marginBottom: 2 }}
+        />
+        <TextField
+          label="LinkedIn"
+          name="linkedIn"
+          value={editedUser.socialHandles?.linkedIn || ""}
+          onChange={handleInputChange}
+          fullWidth
+          sx={{ marginBottom: 2 }}
+        />
+
+        <TextField
+          label="Facebook"
+          name="facebook"
+          value={editedUser.socialHandles?.facebook || ""}
           onChange={handleInputChange}
           fullWidth
           sx={{ marginBottom: 2 }}

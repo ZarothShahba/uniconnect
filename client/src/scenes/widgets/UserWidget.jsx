@@ -36,12 +36,12 @@ const UserWidget = ({ userId, picturePath }) => {
   const main = palette.neutral.main;
 
   const handleEditButtonClick = (evt) => {
-    evt.stopPropagation();
+    // evt.stopPropagation();
     setIsEditPopupOpen(true);
   };
 
   const handleCloseEditPopup = (evt) => {
-    evt.stopPropagation();
+    // evt.stopPropagation();
     setIsEditPopupOpen(false);
   };
 
@@ -70,11 +70,7 @@ const UserWidget = ({ userId, picturePath }) => {
   return (
     <WidgetWrapper>
       {/* FIRST ROW */}
-      <FlexBetween
-        gap="0.5rem"
-        pb="1.1rem"
-        onClick={() => navigate(`/profile/${userId}`)}
-      >
+      <FlexBetween gap="0.5rem" pb="1.1rem">
         <FlexBetween gap="1rem">
           <UserImage image={picturePath} />
           <Box>
@@ -82,6 +78,7 @@ const UserWidget = ({ userId, picturePath }) => {
               variant="h4"
               color={dark}
               fontWeight="500"
+              onClick={() => navigate(`/profile/${userId}`)}
               sx={{
                 "&:hover": {
                   color: palette.primary.light,
@@ -174,7 +171,7 @@ const UserWidget = ({ userId, picturePath }) => {
                 Linkedin
               </Typography>
               <Typography color={medium}>
-                {socialHandles?.linkedin || "No Linkedin account linked."}
+                {socialHandles?.linkedIn || "No Linkedin account linked."}
               </Typography>
             </Box>
           </FlexBetween>

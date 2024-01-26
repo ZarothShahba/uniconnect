@@ -34,7 +34,14 @@ export const searchUsers = async (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const { id } = req.params;
-    const { password, firstName, lastName, occupation, location } = req.body;
+    const {
+      password,
+      firstName,
+      lastName,
+      occupation,
+      location,
+      socialHandles,
+    } = req.body;
 
     const user = await User.findById(id);
 
@@ -43,6 +50,11 @@ export const updateProfile = async (req, res) => {
       const salt = await bcrypt.genSalt();
       const passwordHash = await bcrypt.hash(password, salt);
       user.password = passwordHash;
+    }
+
+    // Update social handles if provided
+    if (socialHandles) {
+      user.socialHandles = socialHandles;
     }
 
     // Rest of the profile update logic...
@@ -54,15 +66,14 @@ export const updateProfile = async (req, res) => {
       _id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
+      socialHandles: user.socialHandles,
       // Include other fields you want to send...
     };
 
-    res
-      .status(200)
-      .json({
-        message: "Profile updated successfully",
-        user: userWithoutPassword,
-      });
+    res.status(200).json({
+      message: "Profile updated successfully",
+      user: userWithoutPassword,
+    });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
