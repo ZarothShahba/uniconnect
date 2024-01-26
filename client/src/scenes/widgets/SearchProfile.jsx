@@ -16,12 +16,14 @@ import {
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const SearchProfile = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const token = useSelector((state) => state.token);
+  const navigate = useNavigate();
 
   const theme = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -87,7 +89,17 @@ const SearchProfile = () => {
         <List>
           {searchResults.map((result) => (
             <ListItem key={result._id}>
-              <Card elevation={3} style={{ width: "100%" }}>
+              <Card
+                elevation={3}
+                sx={{
+                  width: "100%",
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                    cursor: "pointer",
+                  },
+                }}
+                onClick={() => navigate(`/profile/${result._id}`)}
+              >
                 <Box display="flex" alignItems="center" padding="1rem">
                   <Avatar
                     alt={`${result.firstName} ${result.lastName}'s Profile Picture`}
