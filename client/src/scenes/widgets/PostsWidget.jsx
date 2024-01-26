@@ -145,7 +145,7 @@ const PostsWidget = ({ userId, isProfile = false, groupId, isSavedPosts }) => {
     } else {
       getPosts();
     }
-  }, [groupId, isProfile]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [groupId, isProfile, isSavedPosts]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return <LoadingSpinner />;

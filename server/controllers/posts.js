@@ -48,9 +48,7 @@ export const getFeedPosts = async (req, res) => {
 export const getUserSavedPosts = async (req, res) => {
   try {
     const { userId } = req.params;
-    const user = await User.findOneAndReplace({ _id: userId }).populate(
-      "savedPosts"
-    );
+    const user = await User.findOne({ _id: userId }).populate("savedPosts");
     const posts = user.savedPosts;
     res.status(200).json(posts);
   } catch (err) {
@@ -302,7 +300,6 @@ export const createGroup = async (req, res) => {
       message: "Group created successfully",
     });
   } catch (error) {
-    console.error("Error creating group:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -313,7 +310,6 @@ export const getGroups = async (req, res) => {
     const groups = await Group.find();
     res.status(200).json(groups);
   } catch (error) {
-    console.error("Error getting groups:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -335,7 +331,6 @@ export const getGroupById = async (req, res) => {
     // Return the group details
     res.status(200).json(group);
   } catch (error) {
-    console.error("Error getting group by ID:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -354,7 +349,6 @@ export const deleteGroupById = async (req, res) => {
     const deleteGroup = await Group.findByIdAndDelete(groupId);
     res.status(200).json(deleteGroup);
   } catch (error) {
-    console.error("Error Deleting new Group by ID:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
