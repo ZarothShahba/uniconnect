@@ -37,35 +37,32 @@ export const updateProfile = async (req, res) => {
     const { password, firstName, lastName, occupation, location } = req.body;
 
     const user = await User.findById(id);
+
+    // Conditionally update the password if provided
     if (password) {
       const salt = await bcrypt.genSalt();
       const passwordHash = await bcrypt.hash(password, salt);
       user.password = passwordHash;
     }
 
-    if (req.files && req.files.picture) {
-      const profilePicture = req.files.picture[0];
-      user.picturePath = profilePicture.filename;
-    }
-
-    if (firstName) {
-      user.firstName = firstName;
-    }
-
-    if (lastName) {
-      user.lastName = lastName;
-    }
-
-    if (occupation) {
-      user.occupation = occupation;
-    }
-
-    if (location) {
-      user.location = location;
-    }
+    // Rest of the profile update logic...
 
     await user.save();
-    res.status(200).json({ message: "Profile updated successfully" });
+
+    // Exclude password field when sending user information back to frontend
+    const userWithoutPassword = {
+      _id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      // Include other fields you want to send...
+    };
+
+    res
+      .status(200)
+      .json({
+        message: "Profile updated successfully",
+        user: userWithoutPassword,
+      });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

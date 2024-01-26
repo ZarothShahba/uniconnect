@@ -20,6 +20,7 @@ const EditUserPopup = ({ open, handleClose, user }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const [editedUser, setEditedUser] = useState(user);
+  const [password, setPassword] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(
     user.picturePath
@@ -34,6 +35,10 @@ const EditUserPopup = ({ open, handleClose, user }) => {
       ...prevUser,
       [name]: value,
     }));
+    // Handle password separately
+    if (name === "password") {
+      setPassword(value);
+    }
   };
 
   const handleProfilePictureChange = (event) => {
@@ -52,8 +57,8 @@ const EditUserPopup = ({ open, handleClose, user }) => {
       formData.append("id", editedUser._id);
 
       // Update only the fields that have changed
-      if (editedUser.password) {
-        formData.append("password", editedUser.password);
+      if (password) {
+        formData.append("password", password);
       }
 
       if (editedUser.firstName) {
@@ -203,8 +208,8 @@ const EditUserPopup = ({ open, handleClose, user }) => {
         <TextField
           label="Password"
           name="password"
-          placeholder="********" // Use any placeholder text you prefer
-          value={editedUser.password || ""}
+          placeholder="********"
+          value={password}
           onChange={handleInputChange}
           fullWidth
           sx={{ marginBottom: 2 }}

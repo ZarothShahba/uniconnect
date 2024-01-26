@@ -34,6 +34,10 @@ const UserSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    socialHandles: {
+      linkedIn: { type: String },
+      facebook: { type: String },
+    },
     location: String,
     occupation: String,
     phoneNumber: String,
