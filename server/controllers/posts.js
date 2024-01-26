@@ -8,7 +8,6 @@ import mongoose from "mongoose";
 export const createPost = async (req, res) => {
   try {
     const { userId, description, picturePath, videoPath, groupId } = req.body;
-    console.log("🚀 ~ createPost ~ groupId:", groupId);
     const user = await User.findById(userId);
     if (!user) {
       // Handle the case when the user is not found
@@ -29,7 +28,7 @@ export const createPost = async (req, res) => {
     });
     await newPost.save();
 
-    const post = await Post.find();
+    const post = await Post.find({ groupId });
     res.status(201).json(post);
   } catch (err) {
     res.status(409).json({ message: err.message });
