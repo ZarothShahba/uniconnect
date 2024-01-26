@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 import toast from "react-hot-toast";
 import LoadingSpinner from "components/LoadingSpinner";
 
-const PostsWidget = ({ userId, isProfile = false, groupId }) => {
+const PostsWidget = ({ userId, isProfile = false, groupId, isSavedPosts }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
@@ -75,6 +75,36 @@ const PostsWidget = ({ userId, isProfile = false, groupId }) => {
     }
   };
 
+  const getUserSavedPosts = async () => {
+    try {
+      setisLoading(true);
+      const response = await fetch(
+        `http://localhost:3001/posts/${userId}/saved-posts`,
+        {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (!response.ok) {
+        toast.error("Unable to fetch user saved posts");
+        return;
+      }
+      const data = await response.json();
+      dispatch(
+        setPosts({
+          posts: data.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          ),
+        })
+      );
+    } catch (error) {
+      console.error("Error fetching user posts:", error.message);
+      toast.error(error.message);
+    } finally {
+      setisLoading(false);
+    }
+  };
+
   const getGroupPosts = async () => {
     try {
       setisLoading(true);
@@ -110,6 +140,8 @@ const PostsWidget = ({ userId, isProfile = false, groupId }) => {
       getUserPosts();
     } else if (groupId) {
       getGroupPosts();
+    } else if (isSavedPosts) {
+      getUserSavedPosts();
     } else {
       getPosts();
     }

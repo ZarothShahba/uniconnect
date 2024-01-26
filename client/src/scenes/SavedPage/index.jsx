@@ -46,11 +46,11 @@ const SavedPage = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          <MyPostWidget picturePath={user.picturePath} />
+          {/* <MyPostWidget picturePath={user.picturePath} /> */}
           <Box m="2rem 0" />
           <Typography fontSize="30px">My Saved Posts</Typography>
           {/* <EditProfile/> */}
-          <PostsWidget userId={userId} isProfile />
+          <PostsWidget userId={userId} isSavedPosts />
         </Box>
       </Box>
     </Box>

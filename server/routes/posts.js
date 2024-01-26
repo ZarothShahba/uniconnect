@@ -9,6 +9,7 @@ import {
   savePost,
   getEvents,
   deletePost,
+  getUserSavedPosts,
 } from "../controllers/posts.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -17,6 +18,7 @@ const router = express.Router();
 /* READ */
 router.get("/", verifyToken, getFeedPosts);
 router.get("/:userId/posts", verifyToken, getUserPosts);
+router.get("/:userId/saved-posts", verifyToken, getUserSavedPosts);
 router.get("/get-events", verifyToken, getEvents);
 
 /* WRITE */
