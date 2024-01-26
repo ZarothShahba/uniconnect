@@ -150,32 +150,46 @@ const UserWidget = ({ userId, picturePath }) => {
           <FlexBetween gap="1rem">
             {/* <img src="../assets/twitter.png" alt="twitter"/> */}
             <Facebook sx={{ color: "#1C768F", fontSize: "2rem" }} />
-            <Box>
-              <Typography color={main} fontWeight="500">
-                Facebook
-              </Typography>
-              <Typography color={medium}>
-                {socialHandles?.facebook || "No Facebook account linked."}
-              </Typography>
-            </Box>
+            <a
+              href={socialHandles?.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none" }}
+            >
+              <Box>
+                <Typography color={main} fontWeight="500">
+                  Facebook
+                </Typography>
+                <Typography color={medium}>
+                  {socialHandles?.facebook || "No Facebook account linked."}
+                </Typography>
+              </Box>
+            </a>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
+          {/* <EditOutlined sx={{ color: main }} /> */}
         </FlexBetween>
 
         <FlexBetween gap="1rem">
           <FlexBetween gap="1rem">
             {/* <img src="../assets/linkedin.png" alt="linkedin" /> */}
             <LinkedIn sx={{ color: "#1C768F", fontSize: "2rem" }} />
-            <Box>
-              <Typography color={main} fontWeight="500">
-                Linkedin
-              </Typography>
-              <Typography color={medium}>
-                {socialHandles?.linkedIn || "No Linkedin account linked."}
-              </Typography>
-            </Box>
+            <a
+              href={socialHandles?.linkedIn}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none" }}
+            >
+              <Box>
+                <Typography color={main} fontWeight="500">
+                  Linkedin
+                </Typography>
+                <Typography color={medium}>
+                  {socialHandles?.linkedIn || "No Linkedin account linked."}
+                </Typography>
+              </Box>
+            </a>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
+          {/* <EditOutlined sx={{ color: main }} /> */}
         </FlexBetween>
       </Box>
 
