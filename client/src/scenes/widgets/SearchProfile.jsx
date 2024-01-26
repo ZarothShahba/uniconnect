@@ -5,10 +5,12 @@ import {
   Button,
   CircularProgress,
   Typography,
-  Paper,
+  Card,
+  CardContent,
+  CardMedia,
+  Avatar,
   List,
   ListItem,
-  ListItemText,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
@@ -51,8 +53,7 @@ const SearchProfile = () => {
 
   return (
     <Box>
-      <Paper
-        elevation={3}
+      <Box
         style={{
           borderRadius: "9px",
           padding: "1rem",
@@ -80,25 +81,26 @@ const SearchProfile = () => {
         {isLoading && (
           <CircularProgress size={20} style={{ marginLeft: "1rem" }} />
         )}
-      </Paper>
+      </Box>
 
       {searchResults.length > 0 && (
         <List>
           {searchResults.map((result) => (
             <ListItem key={result._id}>
-              <Paper
-                elevation={3}
-                style={{
-                  padding: "1rem",
-                  borderRadius: "9px",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                <ListItemText
-                  primary={`${result.firstName} ${result.lastName}`}
-                  // Add other information you want to display
-                />
-              </Paper>
+              <Card elevation={3} style={{ width: "100%" }}>
+                <Box display="flex" alignItems="center" padding="1rem">
+                  <Avatar
+                    alt={`${result.firstName} ${result.lastName}'s Profile Picture`}
+                    src={`http://localhost:3001/public/assets/picture/${result.picturePath}`}
+                  />
+                  <CardContent style={{ marginLeft: "1rem" }}>
+                    <Typography variant="h6">
+                      {result.firstName} {result.lastName}
+                    </Typography>
+                    {/* Add other information you want to display */}
+                  </CardContent>
+                </Box>
+              </Card>
             </ListItem>
           ))}
         </List>
