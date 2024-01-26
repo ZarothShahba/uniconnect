@@ -10,8 +10,16 @@ const FriendListWidget = ({ userId }) => {
   const dispatch = useDispatch();
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
+  const user = useSelector((state) => state.user);
   const friends = useSelector((state) => state.user.friends || []);
   const allGroups = useSelector((state) => state.groups);
+
+  // Filter out groups where the current user is not a member
+  const userGroups = allGroups?.filter((group) =>
+    group.groupMembers.includes(userId)
+  );
+
+  if (!userGroups.length) return null;
 
   // const getFriends = async () => {
   //   const response = await fetch(
@@ -57,7 +65,7 @@ const FriendListWidget = ({ userId }) => {
         ))}
       </Box> */}
       <Box>
-        {allGroups.map((group) => (
+        {userGroups.map((group) => (
           <GroupSingle key={group._id} groupId={group._id} />
         ))}
       </Box>
